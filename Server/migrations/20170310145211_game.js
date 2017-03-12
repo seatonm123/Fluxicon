@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
     table.integer('points_for_win');
     table.integer('points_for_loss');
     table.string('mode');
+    table.integer('difficulty');
   });
 };
 

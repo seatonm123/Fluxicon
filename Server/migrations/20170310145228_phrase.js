@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
     table.text('content');
     table.string('author');
     table.integer('points');
+    table.integer('difficulty');
   });
 };
 
