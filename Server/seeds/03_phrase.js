@@ -146,7 +146,7 @@ exports.seed = function(knex, Promise) {
         id: 21,
         category: 'literary',
         content: "If you want to tell people the truth, make them laugh. Otherwise they'll kill you.",
-        author: '',
+        author: 'Oscar Wilde',
         points: 13,
         difficulty: 4
       }, {
@@ -177,6 +177,181 @@ exports.seed = function(knex, Promise) {
         author: 'Chuck Swindoll',
         points: 15,
         difficulty: 5
+      }, {
+        id: 26,
+        category: 'music',
+        content: 'Time is on my side.',
+        author: 'The Rolling Stones',
+        points: 5,
+        difficulty: 1
+      }, {
+        id: 27,
+        category: 'music',
+        content: "Love is all you need.",
+        author: 'The Beatles',
+        points: 5,
+        difficulty: 1
+      }, {
+        id: 28,
+        category: 'music',
+        content: "No one knows what it's like to be the bad man, the sad man.",
+        author: 'The Who',
+        points: 13,
+        difficulty: 4
+      }, {
+        id: 29,
+        category: 'music',
+        content: "Many times I've loved, many times been bitten. Many times I've gazed along the open road.",
+        author: 'Led Zeppelin',
+        points: 15,
+        difficulty: 5
+      }, {
+        id: 30,
+        category: 'music',
+        content: "I'm gonna buy this town, and put it in my shoe",
+        author: 'The Jimi Hendrix Experience',
+        points: 11,
+        difficulty: 3
+      }, {
+        id: 31,
+        category: 'music',
+        content: 'Be a simple kind of man, and be something you love and understand',
+        author: 'Lynyrd Skynyrd',
+        points: 13,
+        difficulty: 4
+      }, {
+        id: 32,
+        category: 'music',
+        content: "It ain't me, it ain't me, I ain't no millionaire's son, no",
+        author: 'Creedence Clearwater Revival',
+        points: 13,
+        difficulty: 4
+      }, {
+        id: 33,
+        category: 'music',
+        content: "I'll be with you when the stars start falling.",
+        author: 'Cream',
+        points: 8,
+        difficulty: 2
+      }, {
+        id: 34,
+        category: 'music',
+        content: "What a long, strange trip it's been.",
+        author: 'The Grateful Dead',
+        points: 8,
+        difficulty: 2
+      }, {
+        id: 35,
+        category: 'music',
+        content: "Don't try to push your luck, just get out of my way",
+        author: 'AC/DC',
+        points: 11,
+        difficulty: 3
+      }, {
+        id: 36,
+        category: 'music',
+        content: "When I come back, boy, I'm coming straight out of Compton.",
+        author: 'NWA',
+        points: 13,
+        difficulty: 4
+      }, {
+        id: 37,
+        category: 'music',
+        content: 'Roll to the rock, rock to the roll. DMC stands for devastating microphone control',
+        author: 'Run DMC',
+        points: 15,
+        difficulty: 5
+      }, {
+        id: 38,
+        category: 'music',
+        content: "I got in one little fight and my mom got scared, and said You're moving with your auntie and your uncle in Bel Air",
+        author: 'Will Smith',
+        points: 15,
+        difficulty: 5
+      }, {
+        id: 39,
+        category: 'music',
+        content: "I'm happy, I'm feeling glad. I've got sunshine in a bag.",
+        author: 'Gorillaz',
+        points: 11,
+        difficulty: 3
+      }, {
+        id: 40,
+        category: 'music',
+        content: 'Experience the warmth before you grow old.',
+        author: 'Incubus',
+        points: 8,
+        difficulty: 2
+      }, {
+        id: 41,
+        category: 'music',
+        content: "He's racing and pacing, and plotting the course. He's fighting and biting and riding on his horse.",
+        author: 'Cake',
+        points: 13,
+        difficulty: 4
+      }, {
+        id: 42,
+        category: 'music',
+        content: "Breaking rocks in the hot sun, I fought the law and the law won.",
+        author: 'The Clash',
+        points: 11,
+        difficulty: 3
+      }, {
+        id: 43,
+        category: 'music',
+        content: "I could be so happy, if I'd just stop being sad.",
+        author: 'Heartless Bastards',
+        points: 11,
+        difficulty: 3
+      }, {
+        id: 44,
+        category: 'music',
+        content: "I've been searching for this thing called moderation that I heard some have found. The only problem with drugs is sometime you have to come down.",
+        author: 'Macklemore',
+        points: 15,
+        difficulty: 5
+      }, {
+        id: 45,
+        category: 'music',
+        content: 'The only guarantee in life is a life worth dying for.',
+        author: 'Atmosphere',
+        points: 8,
+        difficulty: 2
+      }, {
+        id: 46,
+        category: 'music',
+        content: "I say to myself, 'What a wonderful world.'",
+        author: 'Louis Armstrong',
+        points: 8,
+        difficulty: 2
+      }, {
+        id: 22,
+        category: 'music',
+        content: 'You know I was the bluest man in this whole Chicago town.',
+        author: 'Muddy Waters',
+        points: 11,
+        difficulty: 3
+      }, {
+        id: 23,
+        category: 'music',
+        content: "You can taste the bright lights but you can't get there for free",
+        author: "Guns 'n' Roses",
+        points: 11,
+        difficulty: 3
+      }, {
+        id: 24,
+        category: 'music',
+        content: "Lucky I'm sane after all I've been through. I can't complain but sometimes I still do.",
+        author: 'Joe Walsh',
+        points: 15,
+        difficulty: 5
+      }, {
+        id: 25,
+        category: 'music',
+        content: "Your pain and your hunger, they're driving you home.",
+        author: 'The Eagles',
+        points: 11,
+        difficulty: 3
       }];
       return knex('phrase').insert(phrases);
     });
