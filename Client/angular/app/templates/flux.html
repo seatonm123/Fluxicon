@@ -1,0 +1,18 @@
+<h1>First Flux</h1>
+<form class="form">
+  <div class="form-group">
+    <label for="guess">Type your guess here</label>
+    <input ng-model='$ctrl.newFlux.fluxIt' type="text" class="form control" id="flux1" placeholder="Yo yo yo yo yoyo" />
+    <p class="help-block">
+      Need help? Too bad, kid. You're smart. You'll figure it out.
+    </p>
+  </div>
+  <button ng-click="$ctrl.makeGuess()" type="button" class="btn btn-info">Make your guess</button>
+  <div class="container">
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="flux in $ctrl.guesses">
+        {{flux.fluxIt}}
+      </li>
+    </ul>
+  </div>
+</form>
