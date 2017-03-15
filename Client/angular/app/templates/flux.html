@@ -1,0 +1,62 @@
+<h1>Fluxicon</h1>
+
+<form class="form" ng-show="$ctrl.showSetup">
+  <div class="row">
+    <label for="lang-select">Select Language</label>
+    <select id="lang-select" ng-model="$ctrl.language">
+      <option name="french">French</button>
+      <option name="spanish">Spanish</button>
+      <option name="german">German</button>
+      <option name="latin">Latin</button>
+      <option name="japanese">Japanese (romaji)</button>
+    </select>
+  </div>
+  <div class="row">
+    <label for="lang-select">Select Difficulty</label>
+    <select class="list-group" id="diff-select" ng-model="$ctrl.difficulty">
+      <option>Very Easy</option>
+      <option>Easy</option>
+      <option>Normal</option>
+      <option>Hard</option>
+      <option>Very Hard</option>
+    </select>
+  </div>
+
+  <div class="row">
+    <label for="lang-select">Select Category</label>
+    <select class="list-group" id="category-select" ng-model="$ctrl.category">
+      <option>Famous Quotes</button>
+      <option>Song Lyrics</button>
+      <option>Movie Quotes</button>
+      <option>Jokes</button>
+      <option>Random Facts</button>
+    </select>
+  </div>
+
+  <button class="btn btn-submit" ng-click="$ctrl.startFlux()">Submit</button>
+
+</form>
+
+<div class="container" ng-show="$ctrl.showFlux">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">From {{$ctrl.langOne}} to {{$ctrl.langTwo}}</h3>
+    </div>
+    <div class="panel-body">
+      {{$ctrl.activePhrase}}
+    </div>
+  </div>
+
+  <form class="form">
+    <div class="form group">
+      <label for="guess">Take a guess</label>
+      <input ng-model="$ctrl.yourGuess" type="text" class="form-control" id="guess" placeholder="Your guess here"/>
+    </div>
+    <button ng-click="$ctrl.makeGuess()" class="btn btn-standard">Make a guess</button>
+    <div class="list-group-item">
+      <li class="list-group-item">
+        {{$ctrl.yourGuess}}
+      </li>
+    </div>
+</form>
+</div>
