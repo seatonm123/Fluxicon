@@ -1,6 +1,5 @@
-<h1>Fluxicon</h1>
 
-<form class="form" ng-show="$ctrl.showSetup">
+<form class="form pager" ng-show="$ctrl.showSetup">
   <div class="row">
     <label for="lang-select">Select Language</label>
     <select id="lang-select" ng-model="$ctrl.language">
@@ -8,9 +7,10 @@
       <option name="spanish">Spanish</button>
       <option name="german">German</button>
       <option name="latin">Latin</button>
-      <option name="japanese">Japanese (romaji)</button>
+      <option name="italian">Italian</button>
     </select>
   </div>
+  <br />
   <div class="row">
     <label for="lang-select">Select Difficulty</label>
     <select class="list-group" id="diff-select" ng-model="$ctrl.difficulty">
@@ -40,23 +40,46 @@
 <div class="container" ng-show="$ctrl.showFlux">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">From {{$ctrl.langOne}} to {{$ctrl.langTwo}}</h3>
+      <h3 class="panel-title">{{finalLang}}</h3>
     </div>
     <div class="panel-body">
       {{$ctrl.activePhrase}}
     </div>
   </div>
 
-  <form class="form">
+  <form class="form pager">
     <div class="form group">
       <label for="guess">Take a guess</label>
       <input ng-model="$ctrl.yourGuess" type="text" class="form-control" id="guess" placeholder="Your guess here"/>
     </div>
-    <button ng-click="$ctrl.makeGuess()" class="btn btn-standard">Make a guess</button>
+    <button ng-click="$ctrl.makeGuess()" class="btn btn-default" ng-disabled="$ctrl.noAnswer">Make a guess</button>
     <div class="list-group-item">
       <li class="list-group-item">
-        {{$ctrl.yourGuess}}
+        {{$ctrl.yourScore}}
       </li>
     </div>
+    <div class="alert alert-success pager" role="alert" ng-show="$ctrl.showScore">
+      <p>Check these words:</p>
+      <ul class="btn-group" ng-repeat="answer in $ctrl.wrongArray">
+        <li class="list-group-item alert alert-danger" id="wrongAnswer">{{answer}}</li>
+      </ul>
+      <h2>You scored {{$ctrl.thisScore}} points</h2>
+      <h3>Your Score is {{$ctrl.currentScore}} / {{$ctrl.optimalScore}}<h3>
+      <button class="btn btn-warning" ng-click="$ctrl.nextPhrase()">Next</button>
+    </div>
 </form>
+
+  <div class="progress pager">
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{$ctrl.finalLength}}%">
+      <span class="sr-only">60% Complete (warning)</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="alert alert-info pager" role="alert" ng-show="$ctrl.endItAll">
+  <h2>The results Are in!</h2>
+  <h3>Your final score is: {{$ctrl.currentScore}} out of a possible {{$ctrl.optimalScore}}</h3>
+  <h4>You're a {{$ctrl.language}} {{$ctrl.mastery}}!</h4>
+  <button class="btn btn-warning" ng-click="$ctrl.nextPhrase()">Next</button>
 </div>

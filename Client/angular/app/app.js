@@ -30,7 +30,19 @@
       vm.startFlux = function(){
           vm.configureScheme()
           .then(function(array){
-            vm.activePhrase = array[0].content;
+            let activePhraseArray = [];
+            let translatedPhraseArray = [];
+            for(var i = 0; i < array.length; i++){
+              activePhraseArray.push(array[i].content);
+            }
+            for(var j = 0; j < activePhraseArray.length; j++){
+              let putThisIn = activePhraseArray[j];
+              let finalPhrase = translateIt(putThisIn);
+              console.log(finalPhrase);
+              translatedPhraseArray.push(finalPhrase);
+              console.log(translatedPhraseArray);
+            }
+            vm.activePhrase = translatedPhraseArray[0];
             vm.makeGuess = function(){
               if(vm.yourGuess === vm.activePhrase){
                 alert('You did it!');
@@ -87,5 +99,28 @@
           });
       };
 
+      vm.nextPhrase = function(){
+        vm.activePhrase = "";
+        vm.toTranslate =
+      };
+
+      function translateIt(phrase){
+        let transPhrase = phrase.split(' ');
+        let transArray = [];
+        for(var i = 0; i < transPhrase.length; i++){
+          transPhrase[i] += "%20";
+          transArray.push(transPhrase[i]);
+        }
+        let toTranslate = transArray.join('');
+        $http.get('https://translation.googleapis.com/language/translate/v2?key=AIzaSyB-n4xn-YGw7BD-I9njUBBe_9-f21VfWm8&source=en&target=es&q=' + toTranslate)
+          .then(function(response){
+            vm.activePhrase = response.data.data.translations[0].translatedText;
+
+          });
+      }
+
     }
+
+
+
 })();
