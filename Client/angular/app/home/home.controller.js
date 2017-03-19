@@ -15,8 +15,8 @@
       };
 
       vm.startFlux = function(){
-        $state.go('flux')
-      }
+        $state.go('flux');
+      };
     }
 
 })();

@@ -25,6 +25,12 @@
         name: 'training',
         url: '/training',
         component: 'training'
+      })
+
+      .state({
+        name: 'progression',
+        url: '/progression',
+        component: 'progression'
       });
 
   }

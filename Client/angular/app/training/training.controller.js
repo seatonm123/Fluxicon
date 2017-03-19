@@ -20,8 +20,10 @@
       vm.wordArray = [];
       var thisOne = "";
       var thatOne = "";
+      var guesses = 0;
       vm.counter = 0;
       vm.totalPoints = 0;
+      vm.hadThree = false;
 
       vm.startFlux = function(){
         vm.showFlux = true;
@@ -35,15 +37,15 @@
           let thisDiff = vm.difficulty.toString().trim();
           let queryString = '';
           if(thisDiff == 'Very Easy'){
-            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=false&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=3&maxLength=4&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
+            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=10&maxCorpusCount=200&minDictionaryCount=7&maxDictionaryCount=20&minLength=3&maxLength=4&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
           } else if(thisDiff == 'Easy'){
-            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=false&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=4&maxLength=6&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
+            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=10&maxCorpusCount=200&minDictionaryCount=7&maxDictionaryCount=20&minLength=4&maxLength=6&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
           } else if(thisDiff == 'Normal'){
-            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=false&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=6&maxLength=8&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
+            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=10&maxCorpusCount=200&minDictionaryCount=7&maxDictionaryCount=20&minLength=6&maxLength=8&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
           } else if(thisDiff == 'Hard'){
-            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=false&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=8&maxLength=10&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
+            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=10&maxCorpusCount=200&minDictionaryCount=7&maxDictionaryCount=20&minLength=8&maxLength=10&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
           } else if(thisDiff == 'Very Hard'){
-            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=false&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=10&maxLength=20&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
+            queryString = 'http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&minCorpusCount=10&maxCorpusCount=200&minDictionaryCount=7&maxDictionaryCount=20&minLength=10&maxLength=20&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
           }
           $http.get(queryString).then(function(response){
              vm.myPhrase = response.data.word;
@@ -96,10 +98,13 @@
       };
 
       vm.nextPhrase = function(){
+        guesses = 0;
+        vm.hadThree = false;
         vm.noAnswer = false;
         if(vm.counter < 10){
           vm.showResults = false;
           vm.showFlux = true;
+          vm.hintActivated = false;
           vm.yourGuess = "";
           getPhrase();
         } else{
@@ -127,9 +132,60 @@
         } else if (vm.totalPoints >= 5){
           vm.mastery = "adequately";
         } else {
-          vm.mastery = "like a fish knows how to fly. Keep practicing"
+          vm.mastery = "like a fish knows how to fly. Keep practicing";
         }
       }
+
+      vm.getHint = function(){
+        console.log(guesses);
+        $http.get('http://words.bighugelabs.com/api/2/69aad68502ca757410fbfa5d73e96888/' + vm.myPhrase + '/json')
+          .then(function(response){
+            console.log(response.data);
+            if (guesses < 3){
+            vm.hintActivated = true;
+            if(response.data.hasOwnProperty('adjective')){
+                if(guesses === 0){
+                  vm.thisHint = response.data.adjective.syn[0];
+              } else if (guesses == 1){
+                  vm.thisHint = response.data.adjective.syn[1];
+              } else if (guesses == 2){
+                  vm.thisHint = response.data.adjective.syn[2];
+              }
+              guesses += 1;
+            } else if(response.data.hasOwnProperty('noun')){
+                if(guesses === 0){
+                  vm.thisHint = response.data.noun.syn[0];
+                } else if (guesses == 1){
+                  vm.thisHint = response.data.noun.syn[1];
+                } else if (guesses == 2){
+                  vm.thisHint = response.data.noun.syn[2];
+                }
+                guesses += 1;
+            } else if(response.data.hasOwnProperty('verb')){
+                if(guesses === 0){
+                  vm.thisHint = response.data.verb.syn[0];
+              } else if (guesses == 1){
+                  vm.thisHint = response.data.verb.syn[1];
+              } else if (guesses == 2){
+                  vm.thisHint = response.data.verb.syn[2];
+            } else if(response.data.hasOwnProperty('adverb')){
+                if(guesses === 0){
+                  vm.thisHint = response.data.adverb.syn[0];
+              } else if (guesses == 1){
+                  vm.thisHint = response.data.adverb.syn[1];
+              } else if (guesses == 2){
+                  vm.thisHint = response.data.adverb.syn[2];
+                }
+            }
+            guesses += 1;
+          }
+        } else {
+          vm.thisHint = "Out of hints!"
+          vm.hadThree = true;
+        }
+          });
+      };
+
 
   }
 
