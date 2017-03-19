@@ -1,5 +1,6 @@
 #wrongAnswer{
-  color: blue;
+  color: red;
+  font-weight: bolder;
 }
 
 .btn-group{
@@ -14,4 +15,13 @@
 .col-md-3{
   width: 20vw;
   padding: 3vw;
+}
+
+#thatLanguage {
+  color: blue;
+}
+
+#rightAnswer {
+  color: blue;
+  font-weight: bolder;
 }

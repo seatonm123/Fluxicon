@@ -5,9 +5,9 @@
     .module('fluxicon')
     .controller('FluxController', FluxController);
 
-    FluxController.$inject = ['$http'];
+    FluxController.$inject = ['$http', '$stateParams', '$state'];
 
-  function FluxController($http){
+  function FluxController($http, $stateParams, $state){
     const vm = this;
 
     vm.$onInit = function(){
@@ -25,7 +25,6 @@
     vm.currentScore = 0;
     vm.optimalScore = 0;
     vm.initialLength = 0;
-    vm.thisLength = 0;
 
     vm.startFlux = function(){
       let finalCategory = configureCategory(vm.category);
@@ -35,7 +34,6 @@
           translateArray.push(phraseArray[i]);
           vm.optimalScore += phraseArray[i].points;
           vm.initialLength += 1;
-          console.log(vm.initialLength);
         }
       }
       for(var j = 0; j < translateArray.length; j++){
@@ -43,21 +41,21 @@
         console.log(finalLang);
         let thisQuery = buildQuery(translateArray[j], finalLang);
         queryStringArray.push(thisQuery);
-        vm.thisLength += 1;
-        console.log(vm.thisLength);
       }
       queryThatShiz(queryStringArray);
     };
+
   function queryThatShiz(stringArray){
     $http.get(stringArray[0])
       .then(function(response){
-        console.log(response);
         vm.activePhrase = response.data.data.translations[0].translatedText;
       });
       vm.showFlux = true;
       vm.showSetup = false;
       toGuess = translateArray[0];
       guessContent = toGuess.content;
+      queryStringArray.shift();
+      translateArray.shift();
     }
 
     function getPhraseArray(){
@@ -144,8 +142,6 @@
   }
 
   vm.makeGuess = function(){
-    queryStringArray.shift();
-    console.log(queryStringArray.length);
     var finalScore = 0;
     var score = 0;
     vm.wrongArray = [];
@@ -161,7 +157,7 @@
       }
     }
     finalScore = Math.ceil((score/noSpaceAnswer.length) * toGuess.points);
-    vm.yourScore = guessContent + " : " + toGuess.author;
+    vm.yourScore = "'" + guessContent + "' : " + toGuess.author;
     vm.thisScore = finalScore;
     vm.currentScore += finalScore;
     vm.showScore = true;
@@ -170,23 +166,24 @@
 
   vm.nextPhrase = function(){
     if(queryStringArray.length > 0){
-      vm.finalLength = ((vm.thisLength / vm.initialLength) * 100);
-      // queryStringArray.shift();
-      vm.showScore = false;
-      vm.yourGuess = "";
-      vm.yourScore = "";
-      queryThatShiz(queryStringArray);
-      vm.noAnswer = false;
+    vm.thisLength = queryStringArray.length;
+    console.log(vm.thisLength);
+    vm.yourGuess = "";
+    vm.yourScore = "";
+    queryThatShiz(queryStringArray);
+    vm.showScore = false;
+    vm.noAnswer = false;
+    vm.finalLength = 100 - ((vm.thisLength / vm.initialLength) * 100);
     } else {
-      finalize();
+      isFinal();
     }
   };
 
-  function finalize(){
-    vm.endItAll = true;
-    vm.showFlux = false;
-    vm.showSetup = false;
-    assessMastery();
+  function isFinal(){
+      vm.endItAll = true;
+      vm.showFlux = false;
+      vm.showSetup = false;
+      assessMastery();
   }
 
   function assessMastery(){
@@ -206,6 +203,10 @@
       yourMastery = "beginner";
     }
     vm.mastery = yourMastery;
+  }
+
+  vm.backHome = function(){
+    $state.go('home')
   }
 
 }

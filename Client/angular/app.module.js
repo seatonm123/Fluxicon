@@ -2,5 +2,5 @@
   'use strict';
 
   angular
-    .module('fluxicon', []);
+    .module('fluxicon', ['ui.router']);
 })();
