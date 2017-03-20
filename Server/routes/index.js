@@ -35,4 +35,11 @@ router.get('/phrases/:category/:difficulty', function(req, res, next){
   });
 });
 
+router.get('/progress/:user_id', function(req, res, next){
+  return knex('progress').where('user_id', req.params.user_id)
+  .then(function(data){
+    res.json(data);
+  });
+});
+
 module.exports = router;
