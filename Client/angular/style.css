@@ -25,3 +25,28 @@
   color: blue;
   font-weight: bolder;
 }
+
+#french-label{
+  color: yellow;
+  text-shadow: 1px 1px 1px black;
+}
+
+#spanish-label{
+  color: green;
+  text-shadow: 1px 1px 1px black;
+}
+
+#german-label{
+  color: blue;
+  text-shadow: 1px 1px 1px black;
+}
+
+#latin-label{
+  color: purple;
+  text-shadow: 1px 1px 1px black;
+}
+
+#italian-label{
+  color: red;
+  text-shadow: 1px 1px 1px black;
+}
