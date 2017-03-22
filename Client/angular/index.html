@@ -8,7 +8,13 @@
     <base href="/">
   </head>
   <body>
-    <h1 class="pager">Fluxicon</h1>
+
+    <ul class="nav nav-pills" id="this-header">
+      <h1 class="pager">Fluxicon</h1>
+      <li role="presentation"><a ui-sref="home">Home</a></li>
+      <li role="presentation"><a ui-sref="progression">Profile</a></li>
+      <li role="presentation"><a ui-sref="flux">Quick Game</a></li>
+    </ul>
     <main class="container">
       <!-- <flux></flux> -->
       <ui-view></ui-view>

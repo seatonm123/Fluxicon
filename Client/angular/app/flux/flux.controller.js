@@ -13,7 +13,9 @@
     vm.$onInit = function(){
       vm.showFlux = false;
       vm.showSetup = true;
-      vm.showScore = false;
+      vm.showScoreCorrect = false;
+      vm.showScoreWrong = false;
+      vm.showProgress = false;
       getPhraseArray();
     };
 
@@ -44,6 +46,8 @@
       }
       queryThatShiz(queryStringArray);
       toPost();
+      vm.showProgress = true;
+
     };
 
   function queryThatShiz(stringArray){
@@ -53,6 +57,7 @@
       });
       vm.showFlux = true;
       vm.showSetup = false;
+      vm.displayGuess = true;
       toGuess = translateArray[0];
       guessContent = toGuess.content;
       queryStringArray.shift();
@@ -163,6 +168,7 @@
     vm.currentScore += finalScore;
     vm.showScore = true;
     vm.noAnswer = true;
+    vm.showFlux = false;
   };
 
   vm.nextPhrase = function(){
@@ -176,6 +182,7 @@
     vm.showScore = false;
     vm.noAnswer = false;
     vm.finalLength = 100 - ((vm.thisLength / vm.initialLength) * 100);
+    vm.displayGuess = true;
     } else {
       isFinal();
     }
@@ -185,6 +192,9 @@
       vm.endItAll = true;
       vm.showFlux = false;
       vm.showSetup = false;
+      vm.showScore = false;
+      vm.finalLength = 100;
+      vm.showProgress = false;
       assessMastery();
       // putUser();
   }
