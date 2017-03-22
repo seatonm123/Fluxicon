@@ -11,12 +11,11 @@
       const vm = this;
 
       vm.$onInit = function(){
-        console.log('Hello from Home');
+        vm.showLoginSignup = true;
+        vm.showMenu = false;
+        vm.showForm = false;
       };
 
-      vm.startFlux = function(){
-        $state.go('flux');
-      };
     }
 
 })();

@@ -43,6 +43,7 @@
         queryStringArray.push(thisQuery);
       }
       queryThatShiz(queryStringArray);
+      toPost();
     };
 
   function queryThatShiz(stringArray){
@@ -165,6 +166,7 @@
   };
 
   vm.nextPhrase = function(){
+    vm.wrongArray = [];
     if(queryStringArray.length > 0){
     vm.thisLength = queryStringArray.length;
     console.log(vm.thisLength);
@@ -184,6 +186,7 @@
       vm.showFlux = false;
       vm.showSetup = false;
       assessMastery();
+      // putUser();
   }
 
   function assessMastery(){
@@ -205,9 +208,94 @@
     vm.mastery = yourMastery;
   }
 
-  vm.backHome = function(){
-    $state.go('home')
-  }
+  function toPost(){
+    var thisGame = {
+      method: 'POST',
+      url: 'http://localhost:2500/games',
+      data: {
+        language: vm.language.toString().trim(),
+        points_to_win: vm.optimalScore,
+        points_for_win: Math.floor(vm.optimalScore * 0.15),
+        points_for_loss: Math.floor(vm.optimalScore * 0.05),
+        mode: "Single",
+        difficulty: configureDifficulty(vm.difficulty)
+      }
+    };
+      $http(thisGame).then(function(response){
+        localStorage.setItem('thisGame', response.data[0].id);
+      });
+    }
+
+    vm.postProgress = function(){
+      console.log('posting progress');
+
+      var progressPost = {
+        method: 'POST',
+        url: 'http://localhost:2500/progress',
+        data: {
+          user_id: localStorage.getItem('currentUser'),
+          language: vm.language.toString().trim(),
+          mode: "Single",
+          game_number: 0,
+          percentage_correct: Math.floor((vm.currentScore / vm.optimalScore) * 100)
+      }
+    };
+    console.log(progressPost);
+      $http(progressPost).then(function(response){
+        console.log(response);
+      });
+    };
+
+  //   function getUser(){
+  //     $http.get('http://localhost:2500/users/user/' + localStorage.getItem('currentUser'))
+  //     .then(function(response){
+  //       vm.myPoints = response.data[0].points;
+  //       console.log(response);
+  //       console.log(vm.myPoints);
+  //       vm.myLevel = getLevel(response.data[0].points, response.data[0].level);
+  //     });
+  //     putUser();
+  //   }
+  //   function putUser(){
+  //       var thisPatch = {
+  //         method: 'PATCH',
+  //         url: 'http://localhost:2500/users/user/' + localStorage.getItem('currentUser'),
+  //         data: {
+  //           points: vm.myPoints + vm.currentScore,
+  //           level: vm.myLevel
+  //         }
+  //       };
+  //         $http(thisPatch).then(function(response){
+  //           console.log(vm.myPoints);
+  //           console.log(response);
+  //           console.log(vm.currentScore);
+  //         });
+  // }
+  //
+  //   function getLevel(points, level){
+  //     if(points < 75){
+  //       level = 1;
+  //     }else if (points >= 75 && points <= 149){
+  //       level = 2;
+  //     } else if(points >= 150 && points <= 249){
+  //       level = 3;
+  //     } else if(points >= 250 && points <= 399){
+  //       level = 4;
+  //     } else if (points >= 400 && points <= 599){
+  //       level = 5;
+  //     } else if(points >= 600 && points <=899){
+  //       level = 6;
+  //     } else if(points >=900 && points <= 1299){
+  //       level = 7;
+  //     } else if(points >= 1300 && points <= 1599){
+  //       level = 8;
+  //     } else if(points >= 1600 && points <= 1999){
+  //       level = 9;
+  //     } else if(points >= 2000){
+  //       level = 10;
+  //     }
+  //     return level;
+  //   }
 
 }
 

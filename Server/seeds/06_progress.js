@@ -1,6 +1,6 @@
 
 exports.seed = function(knex, Promise) {
-  return knex.raw('DELETE FROM "progress"; ALTER SEQUENCE progress_id_seq RESTART WITH 21')
+  return knex.raw('DELETE FROM "progress"; ALTER SEQUENCE progress_id_seq RESTART WITH 61')
     .then(function () {
       const progressions = [{
         id: 1,

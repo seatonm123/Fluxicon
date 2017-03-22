@@ -29,7 +29,7 @@
         vm.showFlux = true;
         vm.showSetup = false;
         var thisPhrase = getPhrase();
-
+        toPost();
       };
 
       function getPhrase(){
@@ -186,6 +186,43 @@
           });
       };
 
+      function toPost(){
+        var thisGame = {
+          method: 'POST',
+          url: 'http://localhost:2500/games',
+          data: {
+            language: vm.language.toString().trim(),
+            points_to_win: 7,
+            points_for_win: 2,
+            points_for_loss: 2,
+            mode: "Training",
+            difficulty: null
+          }
+        };
+          $http(thisGame).then(function(response){
+            localStorage.setItem('thisGame', response.data[0].id);
+          });
+        }
+
+        vm.submitScore = function(){
+          console.log('posting progress');
+
+          var progressPost = {
+            method: 'POST',
+            url: 'http://localhost:2500/progress',
+            data: {
+              user_id: localStorage.getItem('currentUser'),
+              language: vm.language.toString().trim(),
+              mode: "Single",
+              game_number: 0,
+              percentage_correct: vm.totalPoints * 10
+          }
+        };
+        console.log(progressPost);
+          $http(progressPost).then(function(response){
+            console.log(response);
+          });
+        };
 
   }
 

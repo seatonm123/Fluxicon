@@ -1,4 +1,4 @@
-#wrongAnswer{
+.wrongAnswer{
   color: red;
   font-weight: bolder;
 }

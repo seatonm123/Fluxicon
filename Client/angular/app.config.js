@@ -10,8 +10,14 @@
     console.log('here');
     $stateProvider
       .state({
-        name: 'home',
+        name: 'login',
         url: '/',
+        component: 'login'
+      })
+      
+      .state({
+        name: 'home',
+        url: '/home',
         component: 'home'
       })
 

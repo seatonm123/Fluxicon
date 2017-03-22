@@ -5,7 +5,8 @@ exports.up = function(knex, Promise) {
     table.string('user_name');
     table.string('email');
     table.string('password');
-    table.integer('level');
+    table.integer('level').defaultTo(1);
+    table.integer('points').defaultTo(0)
     table.string('language_of_choice');
   });
 };

@@ -51,7 +51,7 @@
   <p>Current Score: {{$ctrl.totalPoints}} / {{$ctrl.counter}}</p>
   <ul class="btn-group">
     <li class="list-group-item alert alert-danger" ng-show="$ctrl.rightAnswer" id="rightAnswer">ANSWER : {{$ctrl.myPhrase}}</li>
-    <li class="list-group-item alert alert-danger" ng-show="$ctrl.wrongAnswer" id="wrongAnswer">ANSWER : {{$ctrl.myPhrase}}</li>
+    <li class="list-group-item alert alert-danger wrongAnswer" ng-show="$ctrl.wrongAnswer">ANSWER : {{$ctrl.myPhrase}}</li>
   </ul>
   <button class="btn btn-warning" ng-click="$ctrl.nextPhrase()">Next</button>
 </div>
@@ -63,6 +63,8 @@
     <li>
       You know your {{$ctrl.language}} {{$ctrl.mastery}}.
     </li>
+    <button class="btn btn-warning-outline" ng-click="$ctrl.submitScore()">Submit Score</button>
+    <button class="btn btn-info-outline" ui-sref="home">Home</button>
   </ul>
   <button class="btn btn-warning" ng-click="$ctrl.nextPhrase()">Next</button>
 </div>
